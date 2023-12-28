@@ -23,7 +23,7 @@ services:
       - json_source:/json_source
     network_mode: "host"
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - "host.docker.internal:0.0.0.0"
     depends_on:
       - alpr
   json_server:
