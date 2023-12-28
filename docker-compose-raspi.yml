@@ -28,7 +28,7 @@ services:
     build: ./docker-json-server
     image: guhzantut/json-server:raspi-toll
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - "host.docker.internal:127.0.0.1"
     volumes:
       - json_source:/data
     ports:
