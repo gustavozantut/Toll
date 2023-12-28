@@ -1,0 +1,94 @@
+services:
+  alpr:
+    build: ./yolov5_alpr
+    image: guhzantut/yolov5_alpr:raspi-toll
+    command: --source https://www.youtube.com/watch?v=KMXOy9F0n7k --save-crop --max-det 3 --half --save-frame --save-detected-frame --save-each-n-frames 1 --weights /usr/src/app/runs/train/384-80-150-n-1/weights/best.pt --imgsz 384 384
+    volumes:
+      - runs:/usr/src/app/runs
+      - brplates:/usr/src/app/datasets/BRPlates
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities:
+                - gpu
+    depends_on:
+      - anpr_placa_carro
+  anpr_placa_carro:
+    build: ./openalpr
+    image: guhzantut/openalpr:raspi-toll
+    volumes:
+      - detect:/detect
+      - logs:/logs
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities:
+                - gpu
+  pred_poster:
+    build: ./persist_prediction_post
+    image: guhzantut/anpr_pred_poster:raspi-toll
+    volumes:
+      - detect:/detect
+      - logs:/logs
+      - json_source:/json_source
+    network_mode: "host"
+    depends_on:
+      - alpr
+  json_server:
+    image: clue/json-server
+    volumes:
+      - json_source:/data
+    ports:
+      - 80:80
+    depends_on:
+      - pred_poster
+  pred_displayer:
+    build: ./png_live_displayer
+    image: guhzantut/png_live_displayer:raspi-toll
+    volumes:
+      - detect:/detect
+      - logs:/logs
+    depends_on:
+      - anpr_placa_carro
+  pred_etl:
+    build: ./plate_detector_etl
+    image: guhzantut/mageai:raspi-toll
+    command: /app/run_app.sh mage start plate_detector_etl
+    volumes:
+      - brplates\bq_key.json:/bq_key.json
+    ports:
+      - 6789:6789
+    depends_on:
+      - pred_poster
+volumes:
+  runs:
+    driver_opts:
+      type: cifs
+      o: username=${CIFS_USERNAME},password=${CIFS_PASSWORD}
+      device: //100.108.104.205/sandbox/toll_io/runs
+  brplates:
+    driver_opts:
+      type: cifs
+      o: username=${CIFS_USERNAME},password=${CIFS_PASSWORD}
+      device: //100.108.104.205/sandbox/toll_io/data/BRPlates
+  detect:
+    driver_opts:
+      type: cifs
+      o: username=${CIFS_USERNAME},password=${CIFS_PASSWORD}
+      device: //100.108.104.205/sandbox/toll_io/runs/detect
+  logs:
+    driver_opts:
+      type: cifs
+      o: username=${CIFS_USERNAME},password=${CIFS_PASSWORD}
+      device: //100.108.104.205/sandbox/toll_io/persist_predictions
+  json_source:
+    driver_opts:
+      type: cifs
+      o: username=${CIFS_USERNAME},password=${CIFS_PASSWORD}
+      device: //100.108.104.205/sandbox/toll_io/json_server
