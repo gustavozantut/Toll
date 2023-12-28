@@ -1,0 +1,16 @@
+{
+        "plate_pred": [
+            {
+                "category": "",
+                "version": "",
+                "data_type": "",
+                "epoch_time": "",
+                "img_width": "",
+                "img_height": "",
+                "processing_time_ms": "",
+                "regions_of_interest": [],
+                "results": [],
+                "file": ""
+            }
+        ]
+    }
