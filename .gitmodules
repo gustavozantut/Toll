@@ -1,0 +1,3 @@
+[submodule "frame_renamer"]
+	path = frame_renamer
+	url = https://github.com/gustavozantut/frame_renamer
