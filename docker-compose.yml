@@ -18,7 +18,7 @@ services:
       - anpr_placa_carro
   anpr_placa_carro:
     build: ./openalpr
-    image: guhzantut/openalpr:toll-multi-cat
+    image: guhzantut/openalpr:toll
     volumes:
       - detect:/detect
       - logs:/logs
@@ -32,7 +32,7 @@ services:
                 - gpu
   pred_poster:
     build: ./pred_poster
-    image: guhzantut/anpr_pred_poster:toll-multi-cat
+    image: guhzantut/anpr_pred_poster:toll
     volumes:
       - detect:/detect
       - logs:/logs
