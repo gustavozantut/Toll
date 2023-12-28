@@ -41,7 +41,8 @@ services:
     depends_on:
       - alpr
   json_server:
-    image: clue/json-server
+    build: ./docker-json-server
+    image: guhzantut/json-server:toll
     volumes:
       - json_source:/data
     ports:
