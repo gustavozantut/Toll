@@ -1,5 +1,6 @@
 services:
   alpr:
+    build: ./yolov5_alpr
     image: guhzantut/yolov5_alpr:toll
     command: --source https://www.youtube.com/watch?v=KMXOy9F0n7k --save-crop --max-det 3 --half --save-frame --save-detected-frame --save-each-n-frames 1 --weights /usr/src/app/runs/train/384-80-150-n-1/weights/best.pt --imgsz 384 384
     volumes:
@@ -16,6 +17,7 @@ services:
     depends_on:
       - anpr_placa_carro
   anpr_placa_carro:
+    build: ./openalpr
     image: guhzantut/openalpr:toll-multi-cat
     volumes:
       - detect:/detect
@@ -29,6 +31,7 @@ services:
               capabilities:
                 - gpu
   pred_poster:
+    build: ./pred_poster
     image: guhzantut/anpr_pred_poster:toll-multi-cat
     volumes:
       - detect:/detect
@@ -46,6 +49,7 @@ services:
     depends_on:
       - pred_poster
   pred_displayer:
+    build: ./png_live_display
     image: guhzantut/png_live_display:toll
     volumes:
       - detect:/detect
@@ -53,6 +57,7 @@ services:
     depends_on:
       - anpr_placa_carro
   pred_etl:
+    build: ./plate_detector_etl
     image: guhzantut/mageai:toll
     command: /app/run_app.sh mage start plate_detector_etl
     volumes:
