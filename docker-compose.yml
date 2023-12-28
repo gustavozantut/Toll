@@ -31,7 +31,7 @@ services:
               capabilities:
                 - gpu
   pred_poster:
-    build: ./pred_poster
+    build: ./persist_prediction_post
     image: guhzantut/anpr_pred_poster:toll
     volumes:
       - detect:/detect
