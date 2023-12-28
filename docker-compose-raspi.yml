@@ -22,13 +22,13 @@ services:
       - logs:/logs
       - json_source:/json_source
     network_mode: "host"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     depends_on:
       - alpr
   json_server:
     build: ./docker-json-server
     image: guhzantut/json-server:raspi-toll
-    extra_hosts:
-      - "host.docker.internal:127.0.0.1"
     volumes:
       - json_source:/data
     ports:
