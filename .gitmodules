@@ -1,3 +1,24 @@
 [submodule "frame_renamer"]
 	path = frame_renamer
 	url = https://github.com/gustavozantut/frame_renamer
+[submodule "openalpr"]
+	path = openalpr
+	url = https://github.com/gustavozantut/openalpr
+[submodule "persist_prediction_post"]
+	path = persist_prediction_post
+	url = https://github.com/gustavozantut/persist_prediction_post
+[submodule "plate_detector_etl"]
+	path = plate_detector_etl
+	url = https://github.com/gustavozantut/plate_detector_etl
+[submodule "plate_display"]
+	path = plate_display
+	url = https://github.com/gustavozantut/plate_display
+[submodule "png_live_displayer"]
+	path = png_live_displayer
+	url = https://github.com/gustavozantut/png_live_displayer
+[submodule "png_streamer"]
+	path = png_streamer
+	url = https://github.com/gustavozantut/png_streamer
+[submodule "yolov5_alpr"]
+	path = yolov5_alpr
+	url = https://github.com/gustavozantut/yolov5_alpr
