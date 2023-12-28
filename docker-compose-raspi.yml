@@ -14,14 +14,6 @@ services:
     volumes:
       - detect:/detect
       - logs:/logs
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities:
-                - gpu
   pred_poster:
     build: ./persist_prediction_post
     image: guhzantut/anpr_pred_poster:raspi-toll
