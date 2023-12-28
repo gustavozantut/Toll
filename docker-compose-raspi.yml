@@ -6,14 +6,6 @@ services:
     volumes:
       - runs:/usr/src/app/runs
       - brplates:/usr/src/app/datasets/BRPlates
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities:
-                - gpu
     depends_on:
       - anpr_placa_carro
   anpr_placa_carro:
