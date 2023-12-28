@@ -49,8 +49,8 @@ services:
     depends_on:
       - pred_poster
   pred_displayer:
-    build: ./png_live_display
-    image: guhzantut/png_live_display:toll
+    build: ./png_live_displayer
+    image: guhzantut/png_live_displayer:toll
     volumes:
       - detect:/detect
       - logs:/logs
