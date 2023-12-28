@@ -32,7 +32,7 @@ services:
     volumes:
       - json_source:/data
     ports:
-      - 80:8182
+      - 80:80
     depends_on:
       - pred_poster
   # pred_displayer:
