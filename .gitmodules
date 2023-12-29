@@ -22,3 +22,6 @@
 [submodule "yolov5_alpr"]
 	path = yolov5_alpr
 	url = https://github.com/gustavozantut/yolov5_alpr
+[submodule "docker-json-server"]
+	path = docker-json-server
+	url = https://github.com/gustavozantut/docker-json-server
