@@ -15,8 +15,8 @@ services:
               capabilities:
                 - gpu
     depends_on:
-      - anpr_placa_carro
-  anpr_placa_carro:
+      - anpr
+  anpr:
     build: ./openalpr
     image: guhzantut/openalpr:toll
     volumes:
@@ -56,7 +56,7 @@ services:
       - detect:/detect
       - logs:/logs
     depends_on:
-      - anpr_placa_carro
+      - anpr
   pred_etl:
     build: ./plate_detector_etl
     image: guhzantut/mageai:toll

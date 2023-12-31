@@ -7,8 +7,8 @@ services:
       - runs:/usr/src/app/runs
       - brplates:/usr/src/app/datasets/BRPlates
     depends_on:
-      - anpr_placa_carro
-  anpr_placa_carro:
+      - anpr
+  anpr:
     build: ./openalpr
     image: guhzantut/openalpr:raspi-toll
     volumes:
@@ -42,7 +42,7 @@ services:
   #     - detect:/detect
   #     - logs:/logs
   #   depends_on:
-  #     - anpr_placa_carro
+  #     - anpr
   # pred_etl:
   #   build: ./plate_detector_etl
   #   image: guhzantut/mageai:raspi-toll
