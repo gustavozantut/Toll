@@ -2,7 +2,7 @@ services:
   alpr:
     build: ./yolov5_alpr
     image: guhzantut/yolov5_alpr:toll
-    command: --source https://www.youtube.com/watch?v=KMXOy9F0n7k --save-crop --max-det 3 --save-detected-frame --save-each-n-frames 5 --weights /usr/src/app/runs/train/384-80-150-n-1/weights/best.pt --imgsz 384 384
+    command: --source https://www.youtube.com/watch?v=KMXOy9F0n7k --save-crop --max-det 3 --save-detected-frame --save-each-n-frames 5 --weights /usr/src/app/runs/train/320-64-150-n-10/weights/best.pt --imgsz 384 384
     volumes:
       - runs:/usr/src/app/runs
       - brplates:/usr/src/app/datasets/BRPlates
