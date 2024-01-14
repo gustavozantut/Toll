@@ -1,35 +1,35 @@
 services:
-  alpr:
-    build: ./yolov5_alpr
-    image: guhzantut/yolov5_alpr:toll
-    command: --source https://www.youtube.com/watch?v=KMXOy9F0n7k --half --save-crop --max-det 3 --save-detected-frame --save-each-n-frames 3 --weights /usr/src/app/runs/train/320--1-150-n6-14/weights/best.pt --imgsz 320 320
-    volumes:
-      - runs:/usr/src/app/runs
-      - brplates:/usr/src/app/datasets/BRPlates
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities:
-                - gpu
-    depends_on:
-      - anpr
-  anpr:
-    build: ./openalpr
-    image: guhzantut/openalpr:toll
-    volumes:
-      - detect:/detect
-      - logs:/logs
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities:
-                - gpu
+  # alpr:
+  #   build: ./yolov5_alpr
+  #   image: guhzantut/yolov5_alpr:toll
+  #   command: --source https://www.youtube.com/watch?v=KMXOy9F0n7k --save-crop --max-det 3 --save-detected-frame --save-each-n-frames 3 --weights /usr/src/app/runs/train/320--1-150-n6-14/weights/best.pt --imgsz 320 320
+  #   volumes:
+  #     - runs:/usr/src/app/runs
+  #     - brplates:/usr/src/app/datasets/BRPlates
+  #   deploy:
+  #     resources:
+  #       reservations:
+  #         devices:
+  #           - driver: nvidia
+  #             count: 1
+  #             capabilities:
+  #               - gpu
+  #   depends_on:
+  #     - anpr
+  # anpr:
+  #   build: ./openalpr
+  #   image: guhzantut/openalpr:toll
+  #   volumes:
+  #     - detect:/detect
+  #     - logs:/logs
+  #   deploy:
+  #     resources:
+  #       reservations:
+  #         devices:
+  #           - driver: nvidia
+  #             count: 1
+  #             capabilities:
+  #               - gpu
   pred_poster:
     build: ./persist_prediction_post
     image: guhzantut/anpr_pred_poster:toll
@@ -38,8 +38,8 @@ services:
       - logs:/logs
       - json_source:/json_source
     network_mode: "host"
-    depends_on:
-      - alpr
+    # depends_on:
+    #   - alpr
   json_server:
     build: ./docker-json-server
     image: guhzantut/json-server:toll
@@ -49,14 +49,14 @@ services:
       - 80:80
     depends_on:
       - pred_poster
-  pred_displayer:
-    build: ./png_live_displayer
-    image: guhzantut/png_live_displayer:toll
-    volumes:
-      - detect:/detect
-      - logs:/logs
-    depends_on:
-      - anpr
+  # pred_displayer:
+  #   build: ./png_live_displayer
+  #   image: guhzantut/png_live_displayer:toll
+  #   volumes:
+  #     - detect:/detect
+  #     - logs:/logs
+  #   depends_on:
+  #     - anpr
   pred_etl:
     build: ./plate_detector_etl
     image: guhzantut/mageai:toll
