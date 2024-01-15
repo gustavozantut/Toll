@@ -1,6 +1,6 @@
 services:
   alpr:
-    #build:./yolov5_alpr
+    build: ./yolov5_alpr
     image: guhzantut/yolov5_alpr:toll
     command: --source https://www.youtube.com/watch?v=KMXOy9F0n7k --save-crop --max-det 3 --save-detected-frame --save-each-n-frames 5 --weights /usr/src/app/runs/train/320--1-150-n6-14/weights/best.pt --imgsz 320 320
     volumes:
@@ -17,7 +17,7 @@ services:
     depends_on:
       - anpr
   anpr:
-    #build:./openalpr
+    build: ./openalpr
     image: guhzantut/openalpr:toll
     volumes:
       - detect:/detect
@@ -31,7 +31,7 @@ services:
               capabilities:
                 - gpu
   pred_poster:
-    #build:./persist_prediction_post
+    build: ./persist_prediction_post
     image: guhzantut/anpr_pred_poster:toll
     volumes:
       - detect:/detect
@@ -41,7 +41,7 @@ services:
     depends_on:
       - alpr
   json_server:
-    #build:./docker-json-server
+    build: ./docker-json-server
     image: guhzantut/json-server:toll
     volumes:
       - json_source:/data
@@ -50,7 +50,7 @@ services:
     depends_on:
       - pred_poster
   pred_displayer:
-    #build:./png_live_displayer
+    build: ./png_live_displayer
     image: guhzantut/png_live_displayer:toll
     volumes:
       - detect:/detect
@@ -58,7 +58,7 @@ services:
     depends_on:
       - anpr
   pred_etl:
-    #build:./plate_detector_etl
+    build: ./plate_detector_etl
     image: guhzantut/mageai:toll
     command: /app/run_app.sh mage start plate_detector_etl
     volumes:
