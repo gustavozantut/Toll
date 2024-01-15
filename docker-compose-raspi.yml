@@ -1,7 +1,8 @@
 services:
   alpr:
-    build: ./yolov5_alpr
-    dockerfile: ./yolov5_alpr/utils/docker/Dockerfile-arm64
+    build: 
+      context: ./yolov5_alpr
+      dockerfile: ./yolov5_alpr/utils/docker/Dockerfile-arm64
     image: guhzantut/yolov5_alpr:raspi-toll
     command: --source https://www.youtube.com/watch?v=KMXOy9F0n7k --save-crop --max-det 3 --save-detected-frame --save-each-n-frames 5 --weights /usr/src/app/runs/train/320--1-150-n6-14/weights/best.pt --imgsz 320 320
     volumes:
