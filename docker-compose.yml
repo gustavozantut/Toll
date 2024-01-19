@@ -74,24 +74,24 @@ volumes:
     driver_opts:
       type: cifs
       o: username=${CIFS_USERNAME},password=${CIFS_PASSWORD}
-      device: //100.108.104.205/sandbox/toll_io/runs
+      device: //192.168.14.1/sandbox/toll_io/runs
   brplates:
     driver_opts:
       type: cifs
       o: username=${CIFS_USERNAME},password=${CIFS_PASSWORD}
-      device: //100.108.104.205/sandbox/toll_io/data/BRPlates
+      device: //192.168.14.1/sandbox/toll_io/data/BRPlates
   detect:
     driver_opts:
       type: cifs
       o: username=${CIFS_USERNAME},password=${CIFS_PASSWORD}
-      device: //100.108.104.205/sandbox/toll_io/runs/detect
+      device: //192.168.14.1/sandbox/toll_io/runs/detect
   logs:
     driver_opts:
       type: cifs
       o: username=${CIFS_USERNAME},password=${CIFS_PASSWORD}
-      device: //100.108.104.205/sandbox/toll_io/persist_predictions
+      device: //192.168.14.1/sandbox/toll_io/persist_predictions
   json_source:
     driver_opts:
       type: cifs
       o: username=${CIFS_USERNAME},password=${CIFS_PASSWORD}
-      device: //100.108.104.205/sandbox/toll_io/json_server
+      device: //192.168.14.1/sandbox/toll_io/json_server
