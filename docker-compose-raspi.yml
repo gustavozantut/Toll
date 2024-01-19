@@ -50,9 +50,7 @@ services:
     image: guhzantut/mageai:raspi-toll
     command: /app/run_app.sh mage start plate_detector_etl
     volumes:
-      - type: bind
-        source: brplates/bq_key.json
-        target: /bq_key.json
+      - /sandbox/toll_io/data/BRPlates/bq_key.json:/bq_key.json
     ports:
       - 6789:6789
     depends_on:
