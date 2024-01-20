@@ -1,37 +1,37 @@
 services:
-  # alpr:
-  #   build: 
-  #     context: ./yolov5_alpr
-  #     dockerfile: ./utils/docker/Dockerfile
-  #   image: guhzantut/yolov5_alpr:toll
-  #   command: --source https://www.youtube.com/watch?v=KMXOy9F0n7k  --save-crop --max-det 3 --save-detected-frame --save-each-n-frames 5 --weights /usr/src/app/runs/train/256--1-150-n6-14/weights/best.pt --imgsz 256 256
-  #   volumes:
-  #     - runs:/usr/src/app/runs
-  #     - brplates:/usr/src/app/datasets/BRPlates
-  #   deploy:
-  #     resources:
-  #       reservations:
-  #         devices:
-  #           - driver: nvidia
-  #             count: 1
-  #             capabilities:
-  #               - gpu
-  #   depends_on:
-  #     - anpr
-  # anpr:
-  #   build: ./openalpr
-  #   image: guhzantut/openalpr:toll
-  #   volumes:
-  #     - detect:/detect
-  #     - logs:/logs
-  #   deploy:
-  #     resources:
-  #       reservations:
-  #         devices:
-  #           - driver: nvidia
-  #             count: 1
-  #             capabilities:
-  #               - gpu
+  alpr:
+    build: 
+      context: ./yolov5_alpr
+      dockerfile: ./utils/docker/Dockerfile
+    image: guhzantut/yolov5_alpr:toll
+    command: --source https://www.youtube.com/watch?v=KMXOy9F0n7k  --save-crop --max-det 3 --save-detected-frame --save-each-n-frames 5 --weights /usr/src/app/runs/train/256--1-150-n6-14/weights/best.pt --imgsz 256 256
+    volumes:
+      - runs:/usr/src/app/runs
+      - brplates:/usr/src/app/datasets/BRPlates
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities:
+                - gpu
+    depends_on:
+      - anpr
+  anpr:
+    build: ./openalpr
+    image: guhzantut/openalpr:toll
+    volumes:
+      - detect:/detect
+      - logs:/logs
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities:
+                - gpu
   pred_poster:
     build: ./persist_prediction_post
     image: guhzantut/anpr_pred_poster:toll
@@ -40,8 +40,8 @@ services:
       - logs:/logs
       - json_source:/json_source
     network_mode: "host"
-    # depends_on:
-    #   - alpr
+    depends_on:
+      - alpr
   json_server:
     build: ./docker-json-server
     image: guhzantut/json-server:toll
@@ -57,8 +57,8 @@ services:
     volumes:
       - detect:/detect
       - logs:/logs
-    # depends_on:
-    #   - anpr
+    depends_on:
+      - anpr
   pred_etl:
     build: ./plate_detector_etl
     image: guhzantut/mageai:toll
