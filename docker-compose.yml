@@ -4,7 +4,7 @@ services:
       context: ./yolov5_alpr
       dockerfile: ./utils/docker/Dockerfile
     image: guhzantut/yolov5_alpr:toll
-    command: --source tcp://192.168.14.1:8555  --save-crop --max-det 3 --save-detected-frame --save-each-n-frames 5 --weights /usr/src/app/runs/train/256--1-150-n6-14/weights/best.pt --imgsz 256 256
+    command: --source https://www.youtube.com/watch?v=KMXOy9F0n7k  --save-crop --max-det 3 --save-detected-frame --save-each-n-frames 5 --weights /usr/src/app/runs/train/256--1-150-n6-14/weights/best.pt --imgsz 256 256
     volumes:
       - runs:/usr/src/app/runs
       - brplates:/usr/src/app/datasets/BRPlates
