@@ -4,7 +4,7 @@ services:
       context: ./yolov5_alpr
       dockerfile: ./utils/docker/Dockerfile-arm64
     image: guhzantut/yolov5_alpr:raspi-toll
-    command: --source https://www.youtube.com/watch?v=KMXOy9F0n7k --save-crop --max-det 3 --save-detected-frame --save-each-n-frames 5 --weights /usr/src/app/runs/train/256--1-300-n6-14/weights/best.pt --imgsz 256 256
+    command: --source 0 --save-crop --max-det 3 --save-detected-frame --save-each-n-frames 5 --weights /usr/src/app/runs/train/256--1-300-n6-14/weights/best.pt --imgsz 256 256
     volumes:
       - runs:/usr/src/app/runs
       - brplates:/usr/src/app/datasets/BRPlates
